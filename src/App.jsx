@@ -242,19 +242,19 @@ export default function App() {
       </header>
 
       {/* --- MAIN INTERACTIVE GAMEPLAY AREA --- */}
-      <main className="flex-1 min-h-0 w-full flex flex-row items-stretch gap-1.5 sm:gap-2 overflow-hidden">
+      <main className="flex-1 grid grid-cols-[1.2fr_3fr_1.2fr] gap-3 items-center min-h-0 overflow-hidden w-full px-1">
         
-        {/* LEFT PANEL: BANK HURUF HIJAIYAH (Menggunakan tombol kompak) */}
-        <section className={`w-32 sm:w-40 md:w-48 lg:w-52 bg-slate-900/40 backdrop-blur-md rounded-xl border border-slate-800/80 p-1.5 sm:p-2 flex flex-col transition-all duration-300 shrink-0 ${
+        {/* LEFT PANEL: BANK HURUF HIJAIYAH (Mengunci tinggi maks & text-xs) */}
+        <section className={`h-full max-h-[75vh] bg-slate-900/40 backdrop-blur-md rounded-xl border border-slate-800/80 p-2 flex flex-col transition-all duration-300 overflow-hidden shrink-0 ${
           hasExtraLetters ? "opacity-100" : "opacity-40 cursor-not-allowed pointer-events-none"
         }`}>
           <div className="mb-1">
-            <h3 className="text-[9px] sm:text-[10px] font-bold tracking-wider text-slate-400 uppercase text-center sm:text-left">
+            <h3 className="text-[10px] font-bold tracking-wider text-slate-400 uppercase text-center sm:text-left">
               Bank Huruf
             </h3>
           </div>
 
-          <div className="flex-1 overflow-y-auto custom-scrollbar grid grid-cols-3 sm:grid-cols-4 gap-1 pr-0.5">
+          <div className="flex-1 overflow-y-auto custom-scrollbar grid grid-cols-4 gap-1 pr-0.5">
             {HIJAIYAH_LETTERS.map((letter) => {
               const isDisabled = !hasExtraLetters || !isActiveSlotExtra;
               return (
@@ -262,7 +262,7 @@ export default function App() {
                   key={letter}
                   onClick={() => handleSelectLetter(letter)}
                   disabled={isDisabled}
-                  className={`h-7 sm:h-8 md:h-9 rounded text-sm sm:text-base font-bold font-arabic flex items-center justify-center transition-all duration-200 ${
+                  className={`h-8 rounded text-xs md:text-sm font-bold font-arabic flex items-center justify-center transition-all duration-200 ${
                     isDisabled
                       ? "bg-slate-950/20 text-slate-700 border border-transparent"
                       : "bg-slate-800/50 hover:bg-emerald-500/20 text-slate-200 hover:text-emerald-300 border border-slate-700/60 hover:border-emerald-500/40 active:scale-95 cursor-pointer shadow-sm"
@@ -276,7 +276,7 @@ export default function App() {
         </section>
 
         {/* CENTER PANEL: AREA UTAMA KATA (FLEX-1 DAN ELASTIS) */}
-        <section className={`flex-1 border rounded-xl p-2 flex flex-col justify-between items-center relative overflow-hidden transition-all duration-300 ${
+        <section className={`flex-1 h-full max-h-[75vh] border rounded-xl p-3 flex flex-col justify-between items-center relative overflow-hidden transition-all duration-300 ${
           validationState === "error" 
             ? "animate-error-glow" 
             : "bg-slate-900/20 border-slate-800/80"
@@ -285,8 +285,8 @@ export default function App() {
           {/* Background Decorative Pattern */}
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(16,185,129,0.03),transparent_60%)] pointer-events-none" />
 
-          {/* Deretan Kartu Huruf (RTL Flow) - Tinggi maks dibatasi agar menyusut di HP landscape */}
-          <div className={`flex-1 w-full flex flex-row-reverse justify-center items-center gap-1.5 sm:gap-3 transition-transform duration-300 min-h-0 ${
+          {/* Deretan Kartu Huruf (RTL Flow) - Tinggi diatur ke max-h-[45vh] md:max-h-[55vh] aspect-[2/3] */}
+          <div className={`flex-1 w-full flex flex-row-reverse justify-center items-center gap-2 transition-transform duration-300 min-h-0 ${
             validationState === "error" ? "animate-shake" : ""
           }`}>
             {userSlots.map((slot, idx) => {
@@ -309,11 +309,11 @@ export default function App() {
                     setActiveSlotIdx(idx);
                     if (validationState === "error") setValidationState("idle");
                   }}
-                  className={`flex flex-col items-center justify-between p-1 sm:p-1.5 rounded-xl border w-14 sm:w-18 md:w-22 lg:w-24 h-full max-h-[35vh] sm:max-h-[42vh] md:max-h-[48vh] shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer relative group ${cardBg}`}
+                  className={`flex flex-col items-center justify-between p-1 rounded-xl border h-full max-h-[45vh] md:max-h-[55vh] aspect-[2/3] shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer relative group ${cardBg}`}
                 >
                   {/* Harakat Atas */}
-                  <div className="h-4 sm:h-6 flex items-center justify-center">
-                    <span className="text-lg sm:text-xl md:text-2xl font-bold text-amber-400 drop-shadow-[0_0_6px_rgba(251,191,36,0.4)] font-arabic">
+                  <div className="h-4 sm:h-5 flex items-center justify-center">
+                    <span className="text-base sm:text-lg md:text-xl font-bold text-amber-400 drop-shadow-[0_0_6px_rgba(251,191,36,0.4)] font-arabic">
                       {!isBelow ? (slot.harakat || "◌") : " "}
                     </span>
                   </div>
@@ -321,25 +321,25 @@ export default function App() {
                   {/* Slot Huruf */}
                   <div className="flex-1 flex items-center justify-center min-h-0 my-0.5">
                     {isExtra && !slot.char ? (
-                      <span className="text-[8px] sm:text-[10px] tracking-wider text-emerald-400/80 font-bold bg-emerald-500/10 px-1 sm:px-1.5 py-0.5 rounded border border-emerald-500/20">
+                      <span className="text-[8px] sm:text-[9px] tracking-wider text-emerald-400/80 font-bold bg-emerald-500/10 px-1 py-0.5 rounded border border-emerald-500/20">
                         ISI [+]
                       </span>
                     ) : (
-                      <span className="text-xl sm:text-3xl md:text-4xl font-black text-slate-100 font-arabic">
+                      <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black text-slate-100 font-arabic">
                         {slot.char}
                       </span>
                     )}
                   </div>
 
                   {/* Harakat Bawah */}
-                  <div className="h-4 sm:h-6 flex items-center justify-center">
-                    <span className="text-lg sm:text-xl md:text-2xl font-bold text-amber-400 drop-shadow-[0_0_6px_rgba(251,191,36,0.4)] font-arabic">
+                  <div className="h-4 sm:h-5 flex items-center justify-center">
+                    <span className="text-base sm:text-lg md:text-xl font-bold text-amber-400 drop-shadow-[0_0_6px_rgba(251,191,36,0.4)] font-arabic">
                       {isBelow ? slot.harakat : " "}
                     </span>
                   </div>
 
                   {/* Indicator jenis huruf */}
-                  <span className={`text-[8px] sm:text-[9px] px-1 py-0.2 rounded font-medium ${
+                  <span className={`text-[7px] sm:text-[8px] px-1 py-0.2 rounded font-medium ${
                     isExtra 
                       ? "bg-amber-500/15 text-amber-400 border border-amber-500/20" 
                       : "bg-slate-800 text-slate-400"
@@ -358,7 +358,7 @@ export default function App() {
             </span>
             <span 
               dir="rtl" 
-              className="text-xl sm:text-2xl md:text-3xl font-black text-emerald-400 font-arabic drop-shadow-[0_0_8px_rgba(52,211,153,0.4)] tracking-wide min-h-[36px] flex items-center justify-center"
+              className="text-xl sm:text-2xl md:text-3xl font-black text-emerald-400 font-arabic drop-shadow-[0_0_8px_rgba(52,211,153,0.4)] tracking-wide min-h-[32px] flex items-center justify-center"
             >
               {userSlots.map(slot => (slot.char || "◌") + slot.harakat).join("")}
             </span>
@@ -366,8 +366,8 @@ export default function App() {
 
         </section>
 
-        {/* RIGHT PANEL: KONTROL HARAKAT (Lebih kompak) */}
-        <section className="w-24 sm:w-32 md:w-40 lg:w-44 bg-slate-900/40 backdrop-blur-md rounded-xl border border-slate-800/80 p-1.5 sm:p-2 flex flex-col items-center justify-between shrink-0">
+        {/* RIGHT PANEL: KONTROL HARAKAT (Mengunci tinggi maks) */}
+        <section className="h-full max-h-[75vh] bg-slate-900/40 backdrop-blur-md rounded-xl border border-slate-800/80 p-2 flex flex-col items-center justify-between shrink-0">
           <div className="w-full text-center">
             <h3 className="text-[9px] sm:text-[10px] font-bold tracking-wider text-slate-400 uppercase">
               Harakat
@@ -388,12 +388,12 @@ export default function App() {
             {/* STAMP BUTTON BODY */}
             <button
               onClick={applyHarakat}
-              className="w-14 h-14 sm:w-18 sm:h-18 md:w-22 md:h-22 rounded-xl bg-gradient-to-b from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 flex flex-col items-center justify-center shadow-md active:scale-95 cursor-pointer border-t border-white/20 transition-all duration-200"
+              className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-xl bg-gradient-to-b from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 flex flex-col items-center justify-center shadow-md active:scale-95 cursor-pointer border-t border-white/20 transition-all duration-200"
             >
               <span className="text-[7px] sm:text-[8px] font-black uppercase tracking-wider text-amber-950/80">
                 CAP
               </span>
-              <span className="text-lg sm:text-xl md:text-2xl font-black font-arabic">
+              <span className="text-base sm:text-lg md:text-xl font-black font-arabic">
                 {currentStampHarakat.symbol || "◌"}
               </span>
               <span className="text-[7px] sm:text-[8px] font-bold text-amber-950 truncate max-w-full px-1">
@@ -421,7 +421,7 @@ export default function App() {
       </main>
 
       {/* --- BOTTOM BAR (Status & OK Ringkas) --- */}
-      <footer className="w-full bg-slate-900/60 backdrop-blur-md border border-slate-800/80 px-4 py-1.5 rounded-xl flex items-center justify-between z-10 shrink-0">
+      <footer className="w-full bg-slate-900/60 backdrop-blur-md border border-slate-800/80 px-4 h-auto py-1 flex justify-between items-center rounded-xl z-10 shrink-0">
         <div className="flex items-center gap-2">
           <div className={`w-2.5 h-2.5 rounded-full border transition-all duration-300 ${
             validationState === "success" 
