@@ -275,8 +275,8 @@ export default function App() {
           </div>
         </section>
 
-        {/* CENTER PANEL: AREA UTAMA KATA (max-h-[70svh]) */}
-        <section className={`flex-1 h-full max-h-[70svh] border rounded-xl p-2.5 flex flex-col justify-between items-center relative overflow-hidden transition-all duration-300 ${
+        {/* CENTER PANEL: AREA UTAMA KATA (Kolom Tengah Elastis & Proporsional) */}
+        <section className={`w-full h-full flex flex-col justify-between items-center min-h-0 border rounded-xl p-2.5 relative overflow-hidden transition-all duration-300 ${
           validationState === "error" 
             ? "animate-error-glow" 
             : "bg-slate-900/20 border-slate-800/80"
@@ -285,8 +285,8 @@ export default function App() {
           {/* Background Decorative Pattern */}
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(16,185,129,0.03),transparent_60%)] pointer-events-none" />
 
-          {/* Deretan Kartu Huruf (RTL Flow) - Tinggi diatur ke max-h-[50svh] w-auto py-2 */}
-          <div className={`flex-1 w-full flex flex-row-reverse justify-center items-center gap-1.5 transition-transform duration-300 min-h-0 ${
+          {/* Deretan Kartu Huruf (RTL Flow) - Jarak diatur proporsional & ada padding vertikal */}
+          <div className={`w-full flex flex-row-reverse justify-center items-center gap-4 md:gap-8 py-2 transition-transform duration-300 min-h-0 flex-1 ${
             validationState === "error" ? "animate-shake" : ""
           }`}>
             {userSlots.map((slot, idx) => {
@@ -309,11 +309,11 @@ export default function App() {
                     setActiveSlotIdx(idx);
                     if (validationState === "error") setValidationState("idle");
                   }}
-                  className={`flex flex-col items-center justify-between p-1 rounded-xl border h-full max-h-[50svh] w-12 sm:w-16 md:w-20 lg:w-24 shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer relative group ${cardBg}`}
+                  className={`w-full min-w-[80px] max-w-[100px] md:min-w-[120px] md:max-w-[140px] h-full max-h-[45svh] md:max-h-[52svh] flex flex-col items-center justify-between p-3 rounded-2xl border shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer relative group ${cardBg}`}
                 >
                   {/* Harakat Atas */}
-                  <div className="h-4 flex items-center justify-center">
-                    <span className="text-sm sm:text-base md:text-lg font-bold text-amber-400 drop-shadow-[0_0_4px_rgba(251,191,36,0.4)] font-arabic">
+                  <div className="h-4 sm:h-5 flex items-center justify-center">
+                    <span className="text-base sm:text-lg md:text-xl font-bold text-amber-400 drop-shadow-[0_0_4px_rgba(251,191,36,0.4)] font-arabic">
                       {!isBelow ? (slot.harakat || "◌") : " "}
                     </span>
                   </div>
@@ -332,7 +332,7 @@ export default function App() {
                   </div>
 
                   {/* Harakat Bawah */}
-                  <div className="h-4 flex items-center justify-center">
+                  <div className="h-4 sm:h-5 flex items-center justify-center">
                     <span className="text-sm sm:text-base md:text-lg font-bold text-amber-400 drop-shadow-[0_0_4px_rgba(251,191,36,0.4)] font-arabic">
                       {isBelow ? slot.harakat : " "}
                     </span>
