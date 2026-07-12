@@ -214,7 +214,7 @@ export default function App() {
       )}
 
       {/* --- TOP BAR (Header Sangat Ringkas) --- */}
-      <header className="w-full bg-slate-900/60 backdrop-blur-md border border-slate-800/80 px-4 py-1 rounded-xl flex items-center justify-between z-10 gap-2 shrink-0">
+      <header className="w-full bg-slate-900/60 backdrop-blur-md border border-slate-800/80 px-3 py-1 rounded-xl flex items-center justify-between z-10 gap-2 shrink-0">
         <div className="flex items-center gap-2">
           <img src="/tasrif.svg" alt="Logo" className="w-5 h-5 rounded shadow-sm border border-slate-800" />
           <span className="text-xs sm:text-sm font-black tracking-wider text-emerald-400 font-sans uppercase">
@@ -235,16 +235,16 @@ export default function App() {
         </div>
 
         <div className="flex items-center">
-          <span className="px-2 py-0.2 rounded-full bg-slate-800 text-slate-300 text-[8px] md:text-[10px] font-semibold border border-slate-700/80 shadow-inner">
+          <span className="px-2 py-0.2 rounded-full bg-slate-800 text-slate-300 text-xs font-semibold border border-slate-700/80 shadow-inner">
             {currentLevel.wazan}
           </span>
         </div>
       </header>
 
       {/* --- MAIN INTERACTIVE GAMEPLAY AREA --- */}
-      <main className="flex-1 grid grid-cols-[1fr_2.5fr_1fr] gap-2 items-center min-h-0 overflow-hidden w-full px-1">
+      <main className="flex-1 grid grid-cols-[1fr_2.2fr_1fr] gap-2 items-center min-h-0 h-0 overflow-hidden w-full px-1">
         
-        {/* LEFT PANEL: BANK HURUF HIJAIYAH (Sangat Kompak & max-[70svh]) */}
+        {/* LEFT PANEL: BANK HURUF HIJAIYAH (Mengunci tinggi maks & text-xs) */}
         <section className={`h-full max-h-[70svh] bg-slate-900/40 backdrop-blur-md rounded-xl border border-slate-800/80 p-1.5 flex flex-col justify-center transition-all duration-300 overflow-hidden shrink-0 ${
           hasExtraLetters ? "opacity-100" : "opacity-40 cursor-not-allowed pointer-events-none"
         }`}>
@@ -262,7 +262,7 @@ export default function App() {
                   key={letter}
                   onClick={() => handleSelectLetter(letter)}
                   disabled={isDisabled}
-                  className={`h-7 rounded text-[10px] md:text-xs font-bold font-arabic flex items-center justify-center transition-all duration-200 ${
+                  className={`h-7 rounded text-[10px] md:text-xs p-1 font-bold font-arabic flex items-center justify-center transition-all duration-200 ${
                     isDisabled
                       ? "bg-slate-950/20 text-slate-700 border border-transparent"
                       : "bg-slate-800/50 hover:bg-emerald-500/20 text-slate-200 hover:text-emerald-300 border border-slate-700/60 hover:border-emerald-500/40 active:scale-95 cursor-pointer shadow-sm"
@@ -285,8 +285,8 @@ export default function App() {
           {/* Background Decorative Pattern */}
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(16,185,129,0.03),transparent_60%)] pointer-events-none" />
 
-          {/* Deretan Kartu Huruf (RTL Flow) - Jarak diatur proporsional & ada padding vertikal */}
-          <div className={`w-full flex flex-row-reverse justify-center items-center gap-4 md:gap-8 py-2 transition-transform duration-300 min-h-0 flex-1 ${
+          {/* Deretan Kartu Huruf (RTL Flow) - Jarak diatur proporsional & max-h-[42svh] */}
+          <div className={`w-full flex flex-row-reverse justify-center items-center gap-2 sm:gap-4 max-h-[42svh] transition-transform duration-300 min-h-0 flex-1 ${
             validationState === "error" ? "animate-shake" : ""
           }`}>
             {userSlots.map((slot, idx) => {
@@ -309,7 +309,7 @@ export default function App() {
                     setActiveSlotIdx(idx);
                     if (validationState === "error") setValidationState("idle");
                   }}
-                  className={`w-full min-w-[80px] max-w-[100px] md:min-w-[120px] md:max-w-[140px] h-full max-h-[45svh] md:max-h-[52svh] flex flex-col items-center justify-between p-3 rounded-2xl border shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer relative group ${cardBg}`}
+                  className={`w-20 sm:w-28 h-full max-h-[42svh] flex flex-col justify-between p-2 rounded-xl border border-slate-800 shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer relative group ${cardBg}`}
                 >
                   {/* Harakat Atas */}
                   <div className="h-4 sm:h-5 flex items-center justify-center">
@@ -325,7 +325,7 @@ export default function App() {
                         ISI [+]
                       </span>
                     ) : (
-                      <span className="text-xl sm:text-2xl md:text-3xl font-black text-slate-100 font-arabic">
+                      <span className="text-xl sm:text-3xl font-bold text-slate-100 font-arabic">
                         {slot.char}
                       </span>
                     )}
@@ -339,11 +339,7 @@ export default function App() {
                   </div>
 
                   {/* Indicator jenis huruf */}
-                  <span className={`text-[7px] sm:text-[8px] px-1 py-0.2 rounded font-medium ${
-                    isExtra 
-                      ? "bg-amber-500/15 text-amber-400 border border-amber-500/20" 
-                      : "bg-slate-800 text-slate-400"
-                  }`}>
+                  <span className="text-[7px] sm:text-[8px] px-1 py-0.2 rounded font-medium bg-slate-800 text-slate-400">
                     {isExtra ? "Tambahan" : "Asli"}
                   </span>
                 </div>
@@ -367,7 +363,7 @@ export default function App() {
         </section>
 
         {/* RIGHT PANEL: KONTROL HARAKAT (Mengunci tinggi maks & max-[70svh]) */}
-        <section className="h-full max-h-[70svh] bg-slate-900/40 backdrop-blur-md rounded-xl border border-slate-800/80 p-1.5 flex flex-col justify-between items-center shrink-0">
+        <section className="h-full max-h-[70svh] bg-slate-900/40 backdrop-blur-md rounded-xl border border-slate-800/80 p-1.5 flex flex-col justify-between items-center shrink-0 animate-celebrate">
           <div className="w-full text-center">
             <h3 className="text-[9px] font-bold tracking-wider text-slate-400 uppercase">
               Harakat
@@ -443,7 +439,7 @@ export default function App() {
 
         <button
           onClick={handleValidate}
-          className="px-6 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs tracking-wider transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer shadow-md"
+          className="px-4 py-1 text-xs rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black tracking-wider transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer shadow-md"
         >
           OK
         </button>
